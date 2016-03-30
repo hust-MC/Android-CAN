@@ -17,12 +17,10 @@ public class MainActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		byte[] data = {0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x78};
 		
 		Can can = new Can(60000);
 		can.setLoopback(true).commit().start();
 		can.receive(new Receiver());
-//		can.stop();
 	}
 
 	@Override

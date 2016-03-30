@@ -70,12 +70,39 @@ public class Can
 		this.baud = baud;
 	}
 
+	/**
+	 *查询当前是否为增强型
+	 * @return 是否为增强型
+	 */
+	public boolean isEnhance()
+	{
+		return enhance;
+	}
+
+	/**
+	 * 设置增强型状态
+	 * @param enhance true表示增强，false表示不增强
+	 */
+	public void setEnhance(boolean enhance)
+	{
+		this.enhance = enhance;
+	}
+
+	/**
+	 * 查询当前波特率
+	 * @return 当前波特率
+	 */
 	public int getBaud()
 	{
 
 		return baud;
 	}
 
+	/**
+	 * 设置波特率
+	 * @param baud 波特率
+	 * @return
+	 */
 	public Can setBaud(int baud)
 	{
 		this.baud = baud;
@@ -98,12 +125,18 @@ public class Can
 		return state;
 	}
 
+	/**
+	 * 开启Can
+	 */
 	public void start()
 	{
 		this.state = true;
 		run("canconfig can0 start");
 	}
 
+	/**
+	 * 关闭Can
+	 */
 	public void stop()
 	{
 		this.state = false;
@@ -118,6 +151,10 @@ public class Can
 		}
 	}
 
+	/**
+	 * 提交设置，注意需要在Can关闭的情况下进行提交，否则报出异常
+	 * @return
+	 */
 	public Can commit()
 	{
 
@@ -141,14 +178,14 @@ public class Can
 		return this;
 	}
 
-	public void send(int ID, byte[] data)
+	public void send(int ID, short[] data)
 	{
 		StringBuffer sendData = new StringBuffer("cansend can0 -i ");
 		sendData.append(ID);
-		for (byte b : data)
+		for (short s : data)
 		{
 			sendData.append(" ");
-			sendData.append(b);
+			sendData.append(s);
 		}
 		if (enhance)
 		{
